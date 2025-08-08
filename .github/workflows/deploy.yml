@@ -21,7 +21,7 @@ jobs:
     - name: Deploy via SSH
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST_FE }} << 'EOF'
-          cd ~/frontend || git clone https:///riccikoo/frontend-apotek.git ~/frontend
+          cd ~/frontend || git clone https://github.com/riccikoo/frontend-apotek.git ~/frontend
           cd ~/frontend
           git pull origin main
           docker stop react-app || true
