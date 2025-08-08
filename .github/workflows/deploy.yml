@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'frontend/**'
 
 jobs:
   build-deploy:
@@ -20,7 +22,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest ./frontend
 
     - name: Push Docker image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
@@ -32,7 +34,7 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/frontend:latest
-          sudo docker stop frontend || true
-          sudo docker rm frontend || true
-          sudo docker run -d --name frontend -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+          docker stop frontend || true
+          docker rm frontend || true
+          docker run -d --name frontend -p 80:80 ${{ secrets.DOCKER_USERNAME }}/frontend:latest
