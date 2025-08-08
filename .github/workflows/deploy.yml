@@ -37,6 +37,6 @@ jobs:
           sudo docker rm frontend || true
           sudo docker run -d \
             --name frontend \
-            -p 3000:3000 \
+            -p 8080:8080 \
             -v /etc/ssl/certs:/etc/ssl/certs:ro \
             ${{ secrets.DOCKER_USERNAME }}/frontend:latest
