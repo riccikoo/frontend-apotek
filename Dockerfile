@@ -14,4 +14,4 @@ RUN npm install
 EXPOSE 3000
 
 # Jalankan React App
-CMD ["npm", "start"]
+CMD ["npm", "start", "--", "--host", "0.0.0.0"]
