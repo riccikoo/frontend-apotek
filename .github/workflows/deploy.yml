@@ -3,8 +3,8 @@ name: Deploy Frontend
 on:
   push:
     branches: [main]
-    paths: ['frontend/**']  # Pastikan path ini sesuai struktur repo
-
+    paths: ['frontend/**'] 
+    
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
