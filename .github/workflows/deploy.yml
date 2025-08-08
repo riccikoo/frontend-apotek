@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'frontend/**'
 
 jobs:
   build-deploy:
@@ -22,7 +20,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest ./frontend
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest .
 
     - name: Push Docker image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
