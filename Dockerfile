@@ -11,7 +11,7 @@ COPY . .
 RUN npm install
 
 # Buka port (opsional untuk dev)
-EXPOSE 3000
+EXPOSE 8080
 
 # Jalankan React App
 CMD ["npm", "start", "--", "--host", "0.0.0.0"]
