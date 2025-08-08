@@ -31,11 +31,7 @@ const AdminObat = () => {
     try {
       const response = await api.get('/admin/obat');
       // Add full image URL to each obat item
-      const obatWithImageUrls = response.data.map(item => ({
-        ...item,
-        gambar: item.gambar ? `${baseURL}/${item.gambar}` : null
-      }));
-      setObat(obatWithImageUrls);
+      setObat(response.data);
     } catch (error) {
       console.error('Error fetching obat:', error);
     } finally {

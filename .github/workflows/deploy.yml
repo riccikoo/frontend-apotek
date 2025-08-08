@@ -1,0 +1,31 @@
+name: Deploy Frontend to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy via SSH
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST_FE }} << 'EOF'
+          cd ~/frontend || git clone https:///riccikoo/frontend-apotek.git ~/frontend
+          cd ~/frontend
+          git pull origin main
+          docker stop react-app || true
+          docker rm react-app || true
+          docker build -t react-app .
+          docker run -d -p 3000:3000 --name react-app react-app
+        EOF
